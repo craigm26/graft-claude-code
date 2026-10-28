@@ -1,0 +1,19 @@
+{
+  "name": "graft-claude-code",
+  "description": "Graft for Claude Code: keep your changes to open-source projects alive across upstream releases.",
+  "owner": {
+    "name": "Graft",
+    "email": "support@graftfork.com",
+    "url": "https://graftfork.com"
+  },
+  "plugins": [
+    {
+      "name": "graft",
+      "source": "./plugins/graft",
+      "description": "Connects Claude Code to Graft's MCP server, records why you changed a dependency, fork or vendored package in the commit, and tracks the repository with Graft.",
+      "version": "1.0.0",
+      "category": "development",
+      "tags": ["git", "forks", "dependencies", "upstream", "mcp"]
+    }
+  ]
+}
