@@ -7,7 +7,7 @@ allowed-tools: Bash(git log *) Bash(git status *) Bash(git diff *) Bash(git remo
 
 # Record why, so the change survives the next release
 
-Changes to someone else's code are lost or broken on the next upstream release unless someone carries them over. Graft (https://graftfork.com) does that automatically: on each release it moves the changes onto it, runs the tests, and opens a pull request only if every change lands and the tests pass. When a change conflicts, an agent rewrites it **from the reason recorded in its commit**. A change without a reason is the one most likely to be carried wrong or not at all.
+Changes to someone else's code are lost or broken on the next upstream release unless someone carries them over. Graft (https://graftfork.com) does that automatically: on each release it moves the changes onto it, runs the tests, and delivers the moved branch only if every change lands and the tests pass. When a change conflicts, an agent rewrites it **from the reason recorded in its commit**. A change without a reason is the one most likely to be carried wrong or not at all.
 
 ## Step 1: Recognise the moment
 
@@ -62,13 +62,15 @@ Forwarded: no
 
 If the user asks you to commit, write the message this way. If they write their own message without a why, suggest one sentence of reason before committing; don't commit without asking if they decline.
 
+If `git commit` prints `graft: this commit has no reason`, Graft's reasons hook is installed in that repository (`graft init` adds it). The commit went through. If you wrote that commit, amend it straight away with a reason paragraph (`git commit --amend`; it's your own commit that hasn't been pushed). If the user wrote it, suggest one sentence of reason and amend only if they agree.
+
 For an existing branch, `graft record` (Graft's CLI, if installed) lists each change and flags the ones with no reason. Offer to reword those commits only with the user's go-ahead, since it rewrites history.
 
 ## Step 4: Offer to track it with Graft
 
 After committing, if the repository is on GitHub and has an upstream it follows (an `upstream` remote, a fork parent, or a vendored project with releases), offer once:
 
-> Want Graft to keep this change on every new upstream release? It opens a pull request only when the change still applies and the tests pass.
+> Want Graft to keep this change on every new upstream release? It delivers a new branch only when the change still applies and the tests pass.
 
 If they agree and the Graft MCP tools are connected (`track_change`, `list_copies`):
 
@@ -80,6 +82,6 @@ If the tools aren't connected, say how: set `GRAFT_TOKEN` to a token from https:
 
 ## Never
 
-- Never claim Graft will merge or move anything by itself: it opens a pull request only when every change lands and the tests pass, and the user takes it.
+- Never claim Graft will merge or move anything by itself: it delivers a moved branch only when every change lands and the tests pass, and the user takes it.
 - Never answer a Graft question (`answer_question`) without the user's pick. Never submit a resolution that silently drops the user's change; if the new release seems to make it unnecessary, say so and submit upstream's file only when that's clearly right or the user agrees.
 - Never put a Graft token in a file or a commit.
