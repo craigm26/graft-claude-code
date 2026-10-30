@@ -62,9 +62,9 @@ Forwarded: no
 
 If the user asks you to commit, write the message this way. If they write their own message without a why, suggest one sentence of reason before committing; don't commit without asking if they decline.
 
-If `git commit` prints `graft: this commit has no reason`, Graft's reasons hook is installed in that repository (`graft init` adds it). The commit went through. If you wrote that commit, amend it straight away with a reason paragraph (`git commit --amend`; it's your own commit that hasn't been pushed). If the user wrote it, suggest one sentence of reason and amend only if they agree.
+If `git commit` prints `graft: this commit has no reason`, a Graft reasons hook is installed in that repository. The commit went through. If you wrote that commit, amend it straight away with a reason paragraph (`git commit --amend`; it's your own commit that hasn't been pushed). If the user wrote it, suggest one sentence of reason and amend only if they agree.
 
-For an existing branch, `graft record` (Graft's CLI, if installed) lists each change and flags the ones with no reason. Offer to reword those commits only with the user's go-ahead, since it rewrites history.
+For an existing branch, `git log --format='%h %s%n%b' <release>..HEAD` shows each change and its message; the ones with only a subject line have no reason. Offer to reword those commits only with the user's go-ahead, since it rewrites history.
 
 ## Step 4: Offer to track it with Graft
 
