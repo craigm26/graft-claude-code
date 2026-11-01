@@ -19,7 +19,7 @@ In Claude Code:
 /plugin install graft@graft-claude-code
 ```
 
-Make a token in your dashboard under [Settings](https://graftfork.com/app#settings) (Graft is in beta; [request an invite](https://graftfork.com/#invite)) and put it in the environment Claude Code starts from:
+Make a token in your dashboard under [Settings](https://graftfork.com/app#settings) (sign up free at [graftfork.com](https://graftfork.com/#invite)) and put it in the environment Claude Code starts from:
 
 ```
 export GRAFT_TOKEN=graft_...
