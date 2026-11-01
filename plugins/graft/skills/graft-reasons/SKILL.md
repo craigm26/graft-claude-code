@@ -24,6 +24,8 @@ If the change is only to the user's own code, this skill doesn't apply.
 
 Graft keeps, drops or rewrites each commit whole. Commit each separate reason separately: a bug fix and a feature tweak are two commits, even in the same file. Don't fold your change into an unrelated commit.
 
+If Graft already tracks the repository, take a new upstream release through Graft: take its moved branch (`/graft:graft-take`, or `graft pull`) rather than rebasing or merging by hand, which breaks the record of what Graft last moved and stops the next sync. If you bring a release in yourself, rebase the branch onto the release tag. Merge only when git merges cleanly, and put any other edit in a commit of its own; if the merge conflicts, run `git merge --abort` and rebase instead. Graft can't yet carry a merge commit that holds conflict fixes or other edits of its own: a branch with one stays on its release until it's rebased.
+
 ## Step 3: Write the commit message in the form Graft reads
 
 ```
@@ -64,11 +66,11 @@ If the user asks you to commit, write the message this way. If they write their 
 
 If `git commit` prints `graft: this commit has no reason`, a Graft reasons hook is installed in that repository. The commit went through. If you wrote that commit, amend it straight away with a reason paragraph (`git commit --amend`; it's your own commit that hasn't been pushed). If the user wrote it, suggest one sentence of reason and amend only if they agree.
 
-For an existing branch, `git log --format='%h %s%n%b' <release>..HEAD` shows each change and its message; the ones with only a subject line have no reason. Offer to reword those commits only with the user's go-ahead, since it rewrites history.
+For an existing branch, review each commit body with `git log --format='%h %s%n%b' <upstream-tag>..HEAD` and flag the commits that have no reason paragraph. Offer to reword those commits only with the user's go-ahead, since it rewrites history.
 
 ## Step 4: Offer to track it with Graft
 
-After committing, if the repository is on GitHub and has an upstream it follows (an `upstream` remote, a fork parent, or a vendored project with releases), offer once:
+After committing, if the repository has an upstream it follows (an `upstream` remote, a fork parent, or a vendored project with releases), offer once:
 
 > Want Graft to keep this change on every new upstream release? It delivers a new branch only when the change still applies and the tests pass.
 
@@ -77,6 +79,8 @@ If they agree and the Graft MCP tools are connected (`track_change`, `list_copie
 1. Call `list_copies` to check whether the repository is already tracked.
 2. If not, call `track_change` with `repo` (owner/name). Pass `branch`, `upstream` and `base` (the upstream release tag the branch sits on, for example from `git describe --tags --abbrev=0 upstream/main`) only when the changes aren't on the default branch, or detection gets them wrong.
 3. Report Graft's message. If it says Graft's GitHub app isn't installed, tell the user to install it once at https://graftfork.com/app and try again.
+
+If the repository is on another git host (GitLab and others), `track_change` can't take it: tell the user to connect it by its git address at https://graftfork.com/app ("Not on GitHub? Connect by git address").
 
 If the tools aren't connected, say how: set `GRAFT_TOKEN` to a token from https://graftfork.com/app#settings and restart Claude Code (`/mcp` shows `plugin:graft:graft` when it works).
 
