@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "graftfork": {
+      "type": "http",
+      "url": "https://graftfork.com/mcp"
+    }
+  }
+}

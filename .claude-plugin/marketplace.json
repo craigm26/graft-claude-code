@@ -1,19 +1,39 @@
 {
-  "name": "graft-claude-code",
-  "description": "Graft for Claude Code: keep your changes to open-source projects alive across upstream releases.",
+  "name": "graftfork",
+  "description": "graftfork for Claude Code: keep your changes to open-source projects alive across upstream releases.",
   "owner": {
-    "name": "Graft",
+    "name": "graftfork",
     "email": "support@graftfork.com",
     "url": "https://graftfork.com"
   },
   "plugins": [
     {
+      "name": "graftfork",
+      "source": "./plugins/graftfork",
+      "description": "Connects Claude Code to graftfork's MCP server, records why you changed a dependency, fork or vendored package in the commit, and tracks the repository with Graft.",
+      "version": "1.6.0",
+      "category": "development",
+      "tags": [
+        "git",
+        "forks",
+        "dependencies",
+        "upstream",
+        "mcp"
+      ]
+    },
+    {
       "name": "graft",
       "source": "./plugins/graft",
-      "description": "Connects Claude Code to Graft's MCP server, records why you changed a dependency, fork or vendored package in the commit, and tracks the repository with Graft.",
+      "description": "The plugin's name before 1.6, kept unchanged so a 1.5 install keeps loading. It is now graftfork: install graftfork from this marketplace and remove this one.",
       "version": "1.5.0",
       "category": "development",
-      "tags": ["git", "forks", "dependencies", "upstream", "mcp"]
+      "tags": [
+        "git",
+        "forks",
+        "dependencies",
+        "upstream",
+        "mcp"
+      ]
     }
   ]
 }
