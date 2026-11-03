@@ -5,7 +5,7 @@ argument-hint: "[repo or copy id]"
 
 Graft delivers a moved copy itself: it keeps the moved branch, graft/<release>, for the user to take. Fetch it into the clone in the current directory. $ARGUMENTS names the repository or copy id; if empty, use this clone's `origin` remote (owner/name).
 
-1. Call `list_copies` and find the copy (by id, or by repository matching `git remote get-url origin`). If the tools are missing or answer "unauthorized", stop and say: set `GRAFT_TOKEN` to a token from https://graftfork.com/app#settings and restart Claude Code.
+1. Call `list_copies` and find the copy (by id, or by repository matching `git remote get-url origin`). If the tools are missing or answer "unauthorized", stop and say how to connect. If the graft tools are missing, run `/mcp`, choose graft (`plugin:graft:graft`), and sign in to allow it. If a tool answers insufficient_scope, the connection lacks that scope: disconnect graft in `/mcp` and connect again, ticking the scope named in the answer. Without a browser, make a token at https://graftfork.com/app#settings, set `GRAFT_TOKEN` to it, add the server with `claude mcp add --transport http graft https://graftfork.com/mcp --header "Authorization: Bearer $GRAFT_TOKEN"`, and restart Claude Code.
 2. Call `take_move` with the copy's id. If it says there's no move to take, say so with the copy's last sync in plain words (`status`), and stop.
 3. Make sure this is a clone of that copy and its branch is up to date: `git fetch origin <branch>`. Don't touch uncommitted work.
 4. Run the commands `take_move` returned, in order: download the bundle with its link (it works for an hour), then `git fetch` it as `graft/<release>`. Don't run the last command (switching branches) unless the user asks.

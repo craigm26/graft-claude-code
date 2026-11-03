@@ -24,7 +24,7 @@ If the change is only to the user's own code, this skill doesn't apply.
 
 Graft keeps, drops or rewrites each commit whole. Commit each separate reason separately: a bug fix and a feature tweak are two commits, even in the same file. Don't fold your change into an unrelated commit.
 
-If Graft already tracks the repository, take a new upstream release through Graft: take its moved branch (`/graft:graft-take`, or `graft pull`) rather than rebasing or merging by hand, which breaks the record of what Graft last moved and stops the next sync. If you bring a release in yourself, rebase the branch onto the release tag. Merge only when git merges cleanly, and put any other edit in a commit of its own; if the merge conflicts, run `git merge --abort` and rebase instead. Graft can't yet carry a merge commit that holds conflict fixes or other edits of its own: a branch with one stays on its release until it's rebased.
+If Graft already tracks the repository, take a new upstream release through Graft: take its moved branch (`/graft:graft-take`, or `graft pull`) rather than rebasing or merging by hand, which breaks the record of what Graft last moved and stops the next sync. If you bring a release in yourself, rebase the branch onto the release tag. Merge only when git merges cleanly, and put any other edit in a commit of its own; if the merge conflicts, run `git merge --abort` and rebase instead. Graft carries a merge commit that holds conflict fixes or other edits of its own as one more change, "Edits made in merge ...", but plain commits carry more cleanly onto the next release.
 
 ## Step 3: Write the commit message in the form Graft reads
 
@@ -82,7 +82,7 @@ If they agree and the Graft MCP tools are connected (`track_change`, `list_copie
 
 If the repository is on another git host (GitLab and others), `track_change` can't take it: tell the user to connect it by its git address at https://graftfork.com/app ("Not on GitHub? Connect by git address").
 
-If the tools aren't connected, say how: set `GRAFT_TOKEN` to a token from https://graftfork.com/app#settings and restart Claude Code (`/mcp` shows `plugin:graft:graft` when it works).
+If the tools aren't connected, say how. If the graft tools are missing, run `/mcp`, choose graft (`plugin:graft:graft`), and sign in to allow it. If a tool answers insufficient_scope, the connection lacks that scope: disconnect graft in `/mcp` and connect again, ticking the scope named in the answer. Without a browser, make a token at https://graftfork.com/app#settings, set `GRAFT_TOKEN` to it, add the server with `claude mcp add --transport http graft https://graftfork.com/mcp --header "Authorization: Bearer $GRAFT_TOKEN"`, and restart Claude Code.
 
 ## Never
 

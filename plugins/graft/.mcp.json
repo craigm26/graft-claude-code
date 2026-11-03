@@ -2,10 +2,7 @@
   "mcpServers": {
     "graft": {
       "type": "http",
-      "url": "https://graftfork.com/mcp",
-      "headers": {
-        "Authorization": "Bearer ${GRAFT_TOKEN}"
-      }
+      "url": "https://graftfork.com/mcp"
     }
   }
 }
