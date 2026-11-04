@@ -1,6 +1,6 @@
 # graftfork for Claude Code
 
-[graftfork](https://graftfork.com) (Graft) keeps your changed copy of an open-source project up to date: on each upstream release it moves your changes onto it, runs your tests, and keeps the moved branch only if every change lands and the tests pass. Otherwise your copy stays where it was and Graft says why. Graft keeps the moved branch for you to take (`/graftfork:graft-take`, or `graft pull`); a GitHub pull request is an opt-in per copy.
+[graftfork](https://graftfork.com) (Graft) rebuilds a program blind from its spec (a [duramen](https://github.com/craigm26/duramen) record) and keeps the build only if every case passes; rebuilds are on Premium, Team and Enterprise, and fit programs that answer one request at a time. It also keeps your changed copy of an open-source project up to date: on each upstream release it moves your changes onto it, runs your tests, and keeps the moved branch only if every change lands and the tests pass. Otherwise your copy stays where it was and Graft says why. Graft keeps the moved branch for you to take (`/graftfork:graft-take`, or `graft pull`); a GitHub pull request is an opt-in per copy.
 
 This is plugin version 1.6.0. It connects Claude Code to Graft and teaches it to record why each change was made.
 
